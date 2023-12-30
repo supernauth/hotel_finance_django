@@ -34,5 +34,35 @@ def delete_type(request, id):
     return HttpResponseRedirect(reverse('index'))
 
 
+def add_room(request):
+    return HttpResponse(loader.get_template('room.html').render({
+        'room_types': Type.objects.all(),
+    }, request))
+    
+def add_room_record(request):
+    Room(
+        name=request.POST.get('name'),
+        has_views=request.POST.get('has_views') == 'on',
+        type=Type.objects.get(id=request.POST.get('type_id'))
+    ).save()
+    return HttpResponseRedirect(reverse('index'))
 
+def update_room(request, id):
+    return HttpResponse(loader.get_template('room.html').render({
+        'room': Room.objects.get(id=id),
+        'room_types': Type.objects.all()
+    }, request))
+    
+def update_room_record(request, id):
+    room = Room.objects.get(id=id)
+    room.name = request.POST.get('name')
+    room.has_views = request.POST.get('has_views') == 'on'
+    room.night_count = request.POST.get('night_count')
+    room.type = Type.objects.get(id=request.POST.get('type_id'))
+    room.save()
+    return HttpResponseRedirect(reverse('index'))
+
+def delete_room(request, id):
+    Room.objects.get(id=id).delete()
+    return HttpResponseRedirect(reverse('index'))
     

@@ -10,7 +10,7 @@ urlpatterns = [
     path('type/delete/<int:id>', views.delete_type),
     path('room/add/', views.add_room),
     path('room/add/addrecord', views.add_room_record),
-    path('room/update/<int:id>', views.room),
+    path('room/update/<int:id>', views.update_room),
     path('room/update/updaterecord/<int:id>', views.update_room_record),
     path('room/delete/<int:id>', views.delete_room),    
 ]
