@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hotel bevételek</h1>
+    <h3>Szoba fajták</h3>
+    <table border="1">
+        <tr>
+            <th>Típus</th>
+            <th>Ár</th>
+            <th>Lakosztály</th>
+            <th>Módosítás</th>
+            <th>Törlés</th>
+        </tr>
+        {% for type in room_types %}
+        <tr>
+            <td>{{ tpye.name }}</td>
+            <td>{{ type.price }}</td>
+            <td>{{ type.suite }}</td>
+            <td><a href="type/update/{{ type.id }}"></a>módosítás</td>
+            <td><a href="type/delete/"></a>törlés</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <p>
+        <a href="room/add">Szobafajta hozzáadása</a>
+    </p>
+
+    <table border="1">
+        <tr>
+            <th>Név</th>
+            <th>Típus</th>
+            <th>Szép kilátással</th>
+            <th>Vendégéjszakák száma</th>
+            <th>Módosítás</th>
+            <th>Törlés</th>
+        </tr>
+        {% for room in rooms %}
+            <tr>
+                <td>{{ room.name }}</td>
+                <td>{{ room.type.name }}</td>
+                <td>{% if room.has_views %} igen {% endif %}</td>
+                <td>{{ room.night_count }}</td>
+                <td><a href="room/update/{{ room.id }}"></a></td>
+                <td><a href="room/delete/{{ room.id }}"></a></td>
+            </tr>      
+        {% endfor %}
+    </table>
+    <p>
+        <a href="room/add/">Szoba hozzáadása</a>
+    </p>
+
+<h3>A szobakból befolyó összes bevétel</h3>
+    <table>
+        <tr>
+            <th>Szobatípus</th>
+            <th>Vendégéjszakák száma</th>
+        </tr>
+        <!-- itt folytatni, a views.py 12. sorban a lényeg -->
+    </table>
+</body>
+</html>
