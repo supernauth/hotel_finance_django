@@ -18,11 +18,11 @@
         </tr>
         {% for type in room_types %}
         <tr>
-            <td>{{ tpye.name }}</td>
+            <td>{{ type.name }}</td>
             <td>{{ type.price }}</td>
             <td>{{ type.suite }}</td>
-            <td><a href="type/update/{{ type.id }}"></a>módosítás</td>
-            <td><a href="type/delete/"></a>törlés</td>
+            <td><a href="type/update/{{ type.id }}">Módosítás</a></td>
+            <td><a href="type/delete/">Törlés</a></td>
         </tr>
         {% endfor %}
     </table>
@@ -46,8 +46,8 @@
                 <td>{{ room.type.name }}</td>
                 <td>{% if room.has_views %} igen {% endif %}</td>
                 <td>{{ room.night_count }}</td>
-                <td><a href="room/update/{{ room.id }}"></a></td>
-                <td><a href="room/delete/{{ room.id }}"></a></td>
+                <td><a href="room/update/{{ room.id }}">Módosítás</a></td>
+                <td><a href="room/delete/{{ room.id }}">Törlés</a></td>
             </tr>      
         {% endfor %}
     </table>
@@ -56,10 +56,14 @@
     </p>
 
 <h3>A szobákból befolyó összes bevétel</h3>
-    <table>
+    <table border="1">
         <tr>
             <th>Szobatípus</th>
             <th>Vendégéjszakák száma</th>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>1</td>
         </tr>
         <!-- itt folytatni, a views.py 12. sorban a lényeg -->
     </table>

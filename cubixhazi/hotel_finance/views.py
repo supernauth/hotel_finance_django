@@ -6,11 +6,12 @@ from hotel_finance.models import Type, Room
 
 def index(request):
     rooms = Room.objects.all()
+    total_income = 0
     return HttpResponse(loader.get_template('index.html').render({
         'room_types': Type.objects.all(),
         'rooms': rooms,
-        'income': 3 # ide kell majd az összegzés
-    }, request))    
+        'income': total_income,
+    }, request))
 
 def add_type(request):
     return HttpResponse(loader.get_template('type.html').render({}, request))

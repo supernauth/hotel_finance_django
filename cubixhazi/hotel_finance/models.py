@@ -16,4 +16,4 @@ class Room(models.Model):
     night_count = models.IntegerField()
     
     def __str__(self):
-        return f'{self.name} ({self.Type.name})'
+        return f'{self.name} ({self.type.name})'

@@ -12,5 +12,5 @@ urlpatterns = [
     path('room/add/addrecord', views.add_room_record),
     path('room/update/<int:id>', views.update_room),
     path('room/update/updaterecord/<int:id>', views.update_room_record),
-    path('room/delete/<int:id>', views.delete_room),    
+    path('room/delete/<int:id>', views.delete_room),
 ]
