@@ -3,16 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Szobanév {% if room %} módosítása {% else %} hozzáadása {% endif %}</title>
+    <title>{% if room %} Edit {% else %} Add {% endif %}room</title>
 </head>
 <body>
+    <h1>{% if room %} Edit {% else %} Add {% endif %}room</h1>
     <form action= {% if room %} "updaterecord/{{ room.id }}" {% else %} "addrecord" {% endif %} method="post">
         {% csrf_token %}
-        Név: <input type="text" name="name" {% if room %} value="{{ room.name }}" {% endif %}>
+        Name: <input type="text" name="name" {% if room %} value="{{ room.name }}" {% endif %}>
         <br>
-        Kilátás: <input type="checkbox" name="has_views" {% if room and room.has_views %} checked {% endif %}>
+        Has views: <input type="checkbox" name="has_views" {% if room and room.has_views %} checked {% endif %}>
         <br>
-        Vendégéjszakák száma: <input type="number" step=1 name="night_count" {% if room %} value="{{ room.night_count }}" {% endif %}>
+        Number of taken nights: <input type="number" step=1 name="night_count" {% if room %} value="{{ room.night_count }}" {% endif %}>
+        <br>
+        Room type: <select name="type_id">
+            {% for type in room_types %}
+                <option value={{ type.id }}>{{ type.name }}</option>
+            {% endfor %}
+        </select>
         <br>
         <input type="submit" value={% if room %} "Módosítás" {% else %} "Hozzáadás" {% endif %}>
     </form>

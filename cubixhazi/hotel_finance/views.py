@@ -44,6 +44,7 @@ def add_room_record(request):
     Room(
         name=request.POST.get('name'),
         has_views=request.POST.get('has_views') == 'on',
+        night_count=request.POST.get('night_count'),
         type=Type.objects.get(id=request.POST.get('type_id'))
     ).save()
     return HttpResponseRedirect(reverse('index'))
