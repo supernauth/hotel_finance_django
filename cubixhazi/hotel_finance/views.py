@@ -1,17 +1,28 @@
 from django.shortcuts import render
+from django.db.models import Sum, F, ExpressionWrapper, FloatField
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
 from hotel_finance.models import Type, Room
 
 def index(request):
-    rooms = Room.objects.all()
-    total_income = 0
-    return HttpResponse(loader.get_template('index.html').render({
-        'room_types': Type.objects.all(),
-        'rooms': rooms,
+    room_types = Type.objects.all()
+
+    for room_type in room_types:
+        total_taken_nights = Room.objects.filter(type=room_type).aggregate(Sum('night_count'))['night_count__sum'] or 0
+        total_income = room_type.price * total_taken_nights
+        setattr(room_type, 'total_taken_nights', total_taken_nights)
+        setattr(room_type, 'total_income', total_income)
+
+    total_income = Type.objects.aggregate(
+        total_income=Sum(ExpressionWrapper(F('price') * F('room__night_count'), output_field=FloatField()))
+    )['total_income'] or 0
+
+    return render(request, 'index.html', {
+        'room_types': room_types,
+        'rooms': Room.objects.all(),
         'income': total_income,
-    }, request))
+    })
 
 def add_type(request):
     return HttpResponse(loader.get_template('type.html').render({}, request))
@@ -27,6 +38,7 @@ def update_type_record(request, id):
     type = Type.objects.get(id=id)
     type.name = request.POST.get('name')
     type.suite = request.POST.get('suite') == 'on'
+    type.price = request.POST.get('price')
     type.save()
     return HttpResponseRedirect(reverse('index'))
 

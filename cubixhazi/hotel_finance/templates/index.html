@@ -57,18 +57,26 @@
         <button type="button" class="btn btn-outline-secondary" onclick="window.location.href='room/add/';">Add room</button>
     </p>
 <br>
+<br>
 <h3>Total income</h3>
-    <table class="table table-striped table-bordered border-secondary table-sm" style="width: 50%;">
+<h5>The total income is <b>{{ income }}</b> credits.</h5>
+<table class="table table-striped table-bordered border-secondary table-sm" style="width: 50%;">
+    <tr>
+        <th>Room type</th>
+        <th>Number of taken nights</th>
+        <th>Income per night</th>
+        <th>Total Income</th>
+    </tr>
+    {% for type in room_types %}
         <tr>
-            <th>Room type</th>
-            <th>Number of taken nights</th>
+            <td>{{ type.name }}</td>
+            <td>{{ type.total_taken_nights }}</td>
+            <td>{{ type.price }}</td>
+            <td>{{ type.total_income|floatformat:1 }}</td>
         </tr>
-        <tr>
-            <td>0</td>
-            <td>1</td>
-        </tr>
-        <!-- itt folytatni, a views.py 12. sorban a lényeg -->
-    </table>
+    {% endfor %}
+</table>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
