@@ -4,24 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% if room %} Edit {% else %} Add {% endif %}room</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
-<body>
+<body class="px-3 py-2 bg-light bg-gradient">
     <h1>{% if room %} Edit {% else %} Add {% endif %}room</h1>
-    <form action= {% if room %} "updaterecord/{{ room.id }}" {% else %} "addrecord" {% endif %} method="post">
+    <form class="row g-3" action= {% if room %} "updaterecord/{{ room.id }}" {% else %} "addrecord" {% endif %} method="post">
         {% csrf_token %}
-        Name: <input type="text" name="name" {% if room %} value="{{ room.name }}" {% endif %}>
-        <br>
-        Has views: <input type="checkbox" name="has_views" {% if room and room.has_views %} checked {% endif %}>
-        <br>
-        Number of taken nights: <input type="number" step=1 name="night_count" {% if room %} value="{{ room.night_count }}" {% endif %}>
-        <br>
-        Room type: <select name="type_id">
+        <div class="row-auto col-sm-2">
+            <label class="form-label">Name:</label>
+            <input class="form-control" type="text" name="name" {% if room %} value="{{ room.name }}" {% endif %}>
+        </div>
+        <div class="col-sm-2">
+            <label class="form-label">Room type:</label>
+            <select class="form-select" name="type_id">
             {% for type in room_types %}
                 <option value={{ type.id }}>{{ type.name }}</option>
             {% endfor %}
         </select>
+    </div>
+        <div class="row-auto">
+            <label class="form-label">Has views:</label>
+            <br>
+            <input type="checkbox" name="has_views" {% if room and room.has_views %} checked {% endif %}>
+    </div>
+        <div class="row-auto col-sm-2">
+        <label class="form-label">Number of taken nights:</label>
+        <input class="form-control" type="number" step=1 name="night_count" {% if room %} value="{{ room.night_count }}" {% endif %}>
+    </div>
+        
         <br>
-        <input type="submit" value={% if room %} "Módosítás" {% else %} "Hozzáadás" {% endif %}>
+        <div class="row-auto">
+        <input type="submit" class="btn btn-outline-secondary" value={% if room %} "Edit" {% else %} "Add" {% endif %}>
+        </div>
     </form>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
