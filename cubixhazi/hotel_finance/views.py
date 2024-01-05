@@ -28,7 +28,9 @@ def add_type(request):
     return HttpResponse(loader.get_template('type.html').render({}, request))
 
 def add_type_record(request):
-    Type(name=request.POST.get('name'), suite=request.POST.get('suite') == 'on').save()
+    Type(name=request.POST.get('name'),
+         suite=request.POST.get('suite') == 'on',
+         price=request.POST.get('price')).save()
     return HttpResponseRedirect(reverse('index'))
 
 def update_type(request, id):

@@ -23,7 +23,7 @@
             <td>{{ type.price }}</td>
             <td>{% if type.suite %} ✓ {% endif %}</td>
             <td><a href="type/update/{{ type.id }}">Edit</a></td>
-            <td><a href="type/delete/">Delete</a></td>
+            <td><a href="type/delete/{{ type.id }}">Delete</a></td>
         </tr>
         {% endfor %}
     </table>
